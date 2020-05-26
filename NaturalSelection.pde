@@ -1,7 +1,5 @@
 /*
  * KNOWN BUGS:
- * - going to food only works from left side
- * - food does not delete yet
  * - really, really, really ugly
  */
 
@@ -47,7 +45,6 @@ void setup() {
 
 void draw() {
   background(0, 255, 0);
-  
   //Check for time
   if(millis() - dayTime >= dayWait) {
     foodList = new ArrayList<Food>();
@@ -98,7 +95,6 @@ void addFood() {
         foodY = random(5, height - 5);
       }
     }
-    
     foodList.add(
       new Food(
         foodX,
