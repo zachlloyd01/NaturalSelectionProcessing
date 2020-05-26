@@ -81,11 +81,18 @@ void draw() {
   for(int i = 0; i < agentList.size(); i++) {
     agentList.get(i).display(); //every agent display
     agentList.get(i).toFood(foodList); //every agent go to food
+    for(int j = 0; j < foodList.size(); j++) {
+      if(dist(agentList.get(i).xPos, agentList.get(i).yPos, foodList.get(i).xPos, foodList.get(i).yPos) <= 5) {
+        agentList.get(i).eatFood(foodList.get(j));
+        break;
+      }
+    }
   }
 }
 
 void addFood() {
   for(int i = 0; i < 10; i++) {
+    print("bruh");
     float foodX = random(5, width - 5);
     float foodY = random(5, height - 5);
     

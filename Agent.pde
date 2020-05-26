@@ -69,7 +69,6 @@ class Agent {
            shortDist = distance; //set the distance to the closer one
            newFood = foodList.get(i); //set food to the closer one
          }
-     
         float dx = newFood.xPos - xPos;
         xPos += dx * speed;
         
@@ -112,7 +111,7 @@ class Agent {
     
   }
   
-  private void eatFood(Food newFood) {
+  public void eatFood(Food newFood) {
     newFood.isActive = false;
     foodAmount++;
   }
