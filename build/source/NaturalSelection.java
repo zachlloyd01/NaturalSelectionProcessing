@@ -48,7 +48,7 @@ public void setup() {
 }
 
 public void addFood() {
-  for(int i = 0; i < 2; i++) {
+  for(int i = 0; i < 10; i++) {
     float foodX = random(5, width - 5);
     float foodY = random(5, height - 5);
 
@@ -84,6 +84,7 @@ public void foodPlace() {
 public void agentRun() {
   for(int i = 0; i < agentList.size(); i++) {
     Agent agent = agentList.get(i);
+    agent.display();
     if(!agent.foodFound) {
       agent.findFood(foodList);
     }
@@ -151,16 +152,46 @@ class Agent {
 
   //Path find to food
   public void toFood() {
-    float dx = food.xPos - xPos;
-    xPos += dx * speed;
+    if(food != null) {
+      float dx = food.xPos - xPos;
+      xPos += dx * speed;
 
-    float dy = food.yPos - yPos;
-    yPos += dy * speed;
+      float dy = food.yPos - yPos;
+      yPos += dy * speed;
+    }
+
   }
 
   public void findFood(ArrayList<Food> foodList) {
-    for(int i = 0; i < foodList.size(); i++) {
-
+    if(!foodFound && foodList.size() > 0) {
+      float shortDist = 0.0f;
+      Food newFood = new Food();
+      for(int i = 0; i < foodList.size(); i++) {
+        float Dist = dist(xPos, yPos, foodList.get(i).xPos, foodList.get(i).yPos);
+        if(shortDist == 0.0f) {
+          shortDist = Dist;
+          newFood = foodList.get(i);
+        }
+        else if(Dist < shortDist) {
+          shortDist = Dist;
+          newFood = foodList.get(i);
+        }
+      }
+      if(newFood != null) {
+        foodFound = true;
+        food = newFood;
+      }
+      else {
+        randomWalk();
+      }
+    }
+    else {
+      if(foodList.size() <= 0) {
+        randomWalk();
+      }
+      else {
+        toFood();
+      }
     }
   }
 
@@ -192,7 +223,7 @@ class Agent {
   }
 
   public void eatFood() {
-      
+
   }
 }
 //Fruit? Carcass? IDK smth edible. Mmmmmm I could go for a mango RN NGL. Professor can I have a mango?

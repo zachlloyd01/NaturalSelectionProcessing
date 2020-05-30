@@ -57,17 +57,20 @@ class Agent {
 
   //Path find to food
   public void toFood() {
-    float dx = food.xPos - xPos;
-    xPos += dx * speed;
+    if(food != null) {
+      float dx = food.xPos - xPos;
+      xPos += dx * speed;
 
-    float dy = food.yPos - yPos;
-    yPos += dy * speed;
+      float dy = food.yPos - yPos;
+      yPos += dy * speed;
+    }
+
   }
 
   public void findFood(ArrayList<Food> foodList) {
     if(!foodFound && foodList.size() > 0) {
       float shortDist = 0.0;
-      Food newFood;
+      Food newFood = new Food();
       for(int i = 0; i < foodList.size(); i++) {
         float Dist = dist(xPos, yPos, foodList.get(i).xPos, foodList.get(i).yPos);
         if(shortDist == 0.0) {
@@ -81,6 +84,7 @@ class Agent {
       }
       if(newFood != null) {
         foodFound = true;
+        food = newFood;
       }
       else {
         randomWalk();

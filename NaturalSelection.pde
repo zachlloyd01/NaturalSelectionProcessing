@@ -32,7 +32,7 @@ void setup() {
 }
 
 void addFood() {
-  for(int i = 0; i < 2; i++) {
+  for(int i = 0; i < 10; i++) {
     float foodX = random(5, width - 5);
     float foodY = random(5, height - 5);
 
@@ -68,6 +68,7 @@ void foodPlace() {
 void agentRun() {
   for(int i = 0; i < agentList.size(); i++) {
     Agent agent = agentList.get(i);
+    agent.display();
     if(!agent.foodFound) {
       agent.findFood(foodList);
     }
