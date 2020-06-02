@@ -69,6 +69,22 @@ void agentRun() {
   for(int i = 0; i < agentList.size(); i++) {
     Agent agent = agentList.get(i);
     agent.display();
+    if(agent.food != null) {
+      if(dist(agent.xPos, agent.yPos, agent.food.xPos, agent.food.yPos) <= 100) {
+        for(int j = 0; j < foodList.size(); j++) {
+          if(foodList.get(i) == agent.food) {
+            agent.food = null;
+            foodList.remove(i);
+            agent.foodAmount++;
+            agent.foodFound = false;
+
+          }
+          else {
+            agent.foodFound = false;
+          }
+        }
+      }
+    }
     if(!agent.foodFound) {
       agent.findFood(foodList);
     }

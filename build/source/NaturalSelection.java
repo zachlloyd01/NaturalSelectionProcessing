@@ -85,6 +85,22 @@ public void agentRun() {
   for(int i = 0; i < agentList.size(); i++) {
     Agent agent = agentList.get(i);
     agent.display();
+    if(agent.food != null) {
+      if(dist(agent.xPos, agent.yPos, agent.food.xPos, agent.food.yPos) <= 100) {
+        for(int j = 0; j < foodList.size(); j++) {
+          if(foodList.get(i) == agent.food) {
+            agent.food = null;
+            foodList.remove(i);
+            agent.foodAmount++;
+            agent.foodFound = false;
+
+          }
+          else {
+            agent.foodFound = false;
+          }
+        }
+      }
+    }
     if(!agent.foodFound) {
       agent.findFood(foodList);
     }
@@ -130,6 +146,7 @@ class Agent {
   public boolean run = true;
 
   public boolean foodFound = false;
+
   private Food food;
 
   /*
@@ -147,7 +164,7 @@ class Agent {
     xPos = x;
     yPos = y;
     strength = Strength;
-    speed = (Speed * .01f);
+    speed = .08f;
   }
 
   //Path find to food
@@ -215,6 +232,12 @@ class Agent {
     if(foodAmount >= 2) {
       reproduce();
     }
+    else if(foodAmount >= 1) {
+      return;
+    }
+    else if(foodAmount <= 0) {
+
+    }
     foodAmount = 0;
   }
 
@@ -222,9 +245,6 @@ class Agent {
 
   }
 
-  public void eatFood() {
-
-  }
 }
 //Fruit? Carcass? IDK smth edible. Mmmmmm I could go for a mango RN NGL. Professor can I have a mango?
 public class Food {

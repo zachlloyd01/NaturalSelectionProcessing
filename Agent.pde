@@ -35,6 +35,7 @@ class Agent {
   public boolean run = true;
 
   public boolean foodFound = false;
+
   private Food food;
 
   /*
@@ -52,7 +53,7 @@ class Agent {
     xPos = x;
     yPos = y;
     strength = Strength;
-    speed = (Speed * .01);
+    speed = .08;
   }
 
   //Path find to food
@@ -120,6 +121,12 @@ class Agent {
     if(foodAmount >= 2) {
       reproduce();
     }
+    else if(foodAmount >= 1) {
+      return;
+    }
+    else if(foodAmount <= 0) {
+
+    }
     foodAmount = 0;
   }
 
@@ -127,7 +134,4 @@ class Agent {
 
   }
 
-  public void eatFood() {
-
-  }
 }
