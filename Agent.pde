@@ -15,33 +15,33 @@ class Agent {
    * Positioning variables here
    */
 
-  public float xPos = width / 2;
-  public float yPos = height / 2;
+  public float xPos = width / 2; //Default x-position is middle
+  public float yPos = height / 2; //Default y-position is middle
 
 
 
-   //Create a new food that is null, as it will be set to nearest food
+   
 
   /*
    * Characteristic values here
    */
 
-  public float Size = 100;
+  public float Size = 100; //Size of agent
 
-  public float speed = .05;
+  public float speed = .05; //default speed
 
-  public float strength = 1;
+  public float strength = 1; //default strength
 
-  public boolean run = true;
+  public boolean run = true; //always run
 
-  public boolean foodFound = false;
+  public boolean foodFound = false; //has the agent decided which food to nav to?
 
-  private Food food;
+  private Food food; //Create a new food that is null, as it will be set to nearest food
 
   /*
    * State values here
    */
-  public int foodAmount = 0;
+  public int foodAmount = 0; //amt of food eaten
 
   //Generic empty constructor to use default vals
   public Agent() {
@@ -58,45 +58,45 @@ class Agent {
 
   //Path find to food
   public void toFood() {
-    if(food != null) {
-      float dx = food.xPos - xPos;
-      xPos += dx * speed;
+    if(food != null) { //if the agent has decided food
+      float dx = food.xPos - xPos; //Direction btwn agent and food
+      xPos += dx * speed; //add direction by speed to agent's position
 
-      float dy = food.yPos - yPos;
-      yPos += dy * speed;
+      float dy = food.yPos - yPos; //Direction btwn agent and food
+      yPos += dy * speed; //add direction by speed to agent's position
     }
 
   }
 
-  public void findFood(ArrayList<Food> foodList) {
-    if(!foodFound && foodList.size() > 0) {
-      float shortDist = 0.0;
-      Food newFood = new Food();
-      for(int i = 0; i < foodList.size(); i++) {
-        float Dist = dist(xPos, yPos, foodList.get(i).xPos, foodList.get(i).yPos);
-        if(shortDist == 0.0) {
-          shortDist = Dist;
-          newFood = foodList.get(i);
+  public void findFood(ArrayList<Food> foodList) { //Find the nearest food to the agent
+    if(!foodFound && foodList.size() > 0) { //If food has not been found and the list of food is greater than 0
+      float shortDist = 0.0; //The shortest distance set to default val
+      Food newFood = new Food(); //New food to be set via logic later
+      for(int i = 0; i < foodList.size(); i++) { //for each food in the list
+        float Dist = dist(xPos, yPos, foodList.get(i).xPos, foodList.get(i).yPos); //distance between agent and food
+        if(shortDist == 0.0) { //if shortDist is the default value (0.0), then this is the first iteration
+          shortDist = Dist; //set shortest distance to the current distance
+          newFood = foodList.get(i); //Set food to current iteration
         }
-        else if(Dist < shortDist) {
-          shortDist = Dist;
-          newFood = foodList.get(i);
+        else if(Dist < shortDist) { //This is not the first iteration and there is a closer food
+          shortDist = Dist; //shortest distance is current distance
+          newFood = foodList.get(i); //Set food to current location
         }
       }
-      if(newFood != null) {
-        foodFound = true;
-        food = newFood;
+      if(newFood != null) { //If a food was found via the process (sometimes breaks)
+        foodFound = true; //Agent has decided where to go
+        food = newFood; //Set global food val
       }
-      else {
-        randomWalk();
+      else { //No food was found
+        randomWalk(); //Randomly move across the map
       }
     }
-    else {
-      if(foodList.size() <= 0) {
-        randomWalk();
+    else { 
+      if(foodList.size() <= 0) { //Make sure this was not running between food refill
+        randomWalk(); //Randomly move across the map
       }
       else {
-        toFood();
+        toFood(); //Go to global food
       }
     }
   }
@@ -116,22 +116,22 @@ class Agent {
     ellipse(xPos, yPos, Size, Size); //Create the ellipse
   }
 
-  public void reset() {
-    run = false;
-    if(foodAmount >= 2) {
-      reproduce();
+  public void reset() { //Between days
+    run = false; //Do not run
+    if(foodAmount >= 2) { //If it ate 2 food
+      reproduce(); //do da deed
     }
-    else if(foodAmount >= 1) {
-      return;
+    else if(foodAmount >= 1) { //If it ate one food
+      return; //Do nothing
     }
-    else if(foodAmount <= 0) {
-
+    else if(foodAmount <= 0) { //If it ate no food
+      //TODO: Implement death
     }
-    foodAmount = 0;
+    foodAmount = 0; //reset food eaten for the day
   }
 
   private void reproduce() {
-
+    //TODO: Implement reproduction
   }
 
 }
