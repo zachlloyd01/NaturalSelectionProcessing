@@ -49,11 +49,11 @@ class Agent {
     }
     
     //Floor the values
-    if(newAgent.speed < .01) {
+    if(newAgent.speed < .01) { //lowest speed value is .01, cannot go lower
       newAgent.speed = .01;
     }
     
-    if(newAgent.strength < 1) {
+    if(newAgent.strength < 1) { //lowest strength value is 1, cannot go lower
       newAgent.speed = 1;
     }
     return newAgent;
