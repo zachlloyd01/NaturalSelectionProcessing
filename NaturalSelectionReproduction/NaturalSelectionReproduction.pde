@@ -22,14 +22,14 @@ void draw() {
 void keyPressed() {
   ArrayList<Agent> newList = new ArrayList<Agent>();
   for(int i = 0; i < agents.size(); i++) { //for each agent
-    Agent agent = agents.get(i);
-    Agent newAgent = agent.Reproduce();
-    newList.add(newAgent);
-    println(
+    Agent agent = agents.get(i); //Agent instance
+    Agent newAgent = agent.Reproduce(); //New agent
+    newList.add(newAgent); //append the new agent to the temp list
+    println( //Print the agents stats
       "New Agent Stats:\n", 
        "Speed: ", newAgent.speed, "\n",
        "Strength: ", newAgent.strength, "\n"
     );
   }
-  agents.addAll(newList);
+  agents.addAll(newList); //append templist to new list
 }
